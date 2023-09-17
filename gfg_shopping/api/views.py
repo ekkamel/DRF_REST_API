@@ -30,8 +30,13 @@ def add_items(request):
     if Item.objects.filter(**request.data).exists():
         raise serializers.ValidationError('This data alreay exists')
     
+    print(request.data)
+    # -> {'category': 'Computers', 'subcategory': 'Desktops', 'name': 'HP', 'amount': 100}
+    
     if item.is_valid(): 
         item.save()
         return Response(item.data)
     else: 
         return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    
